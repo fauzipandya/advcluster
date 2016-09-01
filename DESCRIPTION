@@ -1,11 +1,11 @@
-Package: advfclust
+Package: advclust
 Type: Package
-Title: Advance Fuzzy Clustering
+Title: Advance Clustering
 Version: 0.1
 Date: 2016-08-20
-Author: Achmad Fauzi Bagus F
+Author: Achmad Fauzi Bagus F with GREAT Contribution from Setia Pramana
 Maintainer: Achmad Fauzi Bagus F <fauzi.pandya@gmail.com>
-Description: S4 Object Oriented Fuzzy Clustering. Fuzzy Clustering method that
+Description: S4 Object Oriented for Clustering. Right now still provide for Fuzzy Clustering Analysis. Fuzzy Clustering method that
     provided Fuzzy C-Means, Gustafson Kessel (Babuska Version). Also provided with
     several validation index, & consensus clustering.
 License: GPL-2
