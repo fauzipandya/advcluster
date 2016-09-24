@@ -10,11 +10,11 @@ print.fuzzycluster<-function(x,...){
   cat(paste("\nFunction objective:",func.obj(x),sep=" "))
 
   cat("\nMembership & Label Matrix:")
-  member.matrix<-partition(x)
+  member.matrix<-member(x)
   colnames(member.matrix)<-paste("Cluster ",
                                  c(1:ncol(member.matrix)),
                                  sep="")
-  Label<-label(x)
+  Label<-hard.label(x)
   member.matrix<-cbind(member.matrix,Label)
   rownames(member.matrix)<-paste("Obs ",
                                  c(1:nrow(member.matrix)),

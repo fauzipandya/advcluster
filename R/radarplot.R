@@ -4,11 +4,15 @@
 #' @param data.X a matrix data
 #' @import ggplot2
 #' @import reshape2
+#' @importFrom stats sd
 #' @export
+#' @examples
+#' fuzzy.CM(iris[,1:4],K=3,m=2,max.iteration=100,threshold=1e-5,RandomNumber=1234)->cl
+#' radar.plotting(cl,iris[,1:4])
 radar.plotting<-function(object,data.X){
   if(missing(object)||missing(data.X))
     stop("No object / data detected")
-  if(length(label(object))!=nrow(data.X))
+  if(length(hard.label(object))!=nrow(data.X))
     stop("row of cluster not match")
   if(!is(object,"fuzzycluster"))
     stop("Cluster is not fuzzycluster class")
@@ -44,5 +48,6 @@ radar.plotting<-function(object,data.X){
     geom_text(data=dataLab,aes_string(x="V1",y="V2",label="V2"))+
     guides(color = guide_legend(ncol=1)) +
     coord_radar()->radar
+  print(radar)
   return(radar)
 }

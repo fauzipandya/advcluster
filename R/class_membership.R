@@ -16,10 +16,12 @@ setValidity("membership",
                 return("hard.label Mismatch\n")
               if(any(member(object)<0 ||member(object)>1))
                 return("Constraint of membership matrix violated\n")
-              member.object<-round(member(object),5)
-              rowSum.membership<-rowSums(member.object)
+              rowSum.membership<-rowSums(member(object))
+              rowSum.membership<-round(rowSum.membership,3)
               if(any(rowSum.membership!=1))
+              {
                 return("Constraint of membership matrix violated\n")
+                }
               if(any(!is.numeric(member(object))))
                 return("Not Numeric")
               if(anyNA(object))

@@ -10,9 +10,9 @@ Consensus Fuzzy Cluster  Result
 \section{Slots}{
 
 \describe{
-\item{\code{partition.ensemble}}{membership matrix}
+\item{\code{member}}{membership matrix}
 
-\item{\code{label.ensemble}}{vector of hard partition}
+\item{\code{hard.label}}{vector of hard partition}
 
 \item{\code{method.consensus}}{method of fuzzy clustering used}
 }}

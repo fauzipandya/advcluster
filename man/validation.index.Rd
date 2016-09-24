@@ -9,6 +9,9 @@ validation.index(object)
 \arguments{
 \item{object}{fuzzy clustering object}
 }
+\value{
+validation index object.
+}
 \description{
 Validation index for validating fuzzy clustering result
 }
@@ -18,6 +21,29 @@ This function provide several validation indexs that calculated from fuzzy clust
 There are PC, MPC, CE, S, Xie Beni, Kwon, and Tang index. PC (Partition Coefficient), MPC (Modified Partition Coefficient), and CE (Classification Entropy) are calculated from membership matrix. S (Separation Index), Xie Beni, Kwon, and Tang use both distance and membership matrix.
 
 The best cluster result can be decided with minimum value of index, except MPC and PC use maximum value.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{XB}}{Xie Beni Index}
+
+\item{\code{PC}}{Partition Coef.}
+
+\item{\code{MPC}}{Modifief Partition Coef.}
+
+\item{\code{Kwon}}{Kwon Index}
+
+\item{\code{Tang}}{Tang Index}
+
+\item{\code{S}}{Separation Index}
+
+\item{\code{CE}}{Classification Entropy}
+}}
+\examples{
+fuzzy.CM(iris[,1:4],K=3,m=2,max.iteration=100,threshold=1e-5,RandomNumber=1234)->cl
+validation.index(cl)->valid
+#example for Xie Beni index
+XB(valid)
 }
 \author{
 Achmad Fauzi Bagus F

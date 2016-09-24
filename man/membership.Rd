@@ -15,7 +15,21 @@ membership(member, K, n, RandomNumber = 0)
 
 \item{RandomNumber}{random number/seed used}
 }
+\value{
+membership object
+}
 \description{
 Make an Partition Matrix
+}
+\section{Slots}{
+
+\describe{
+\item{\code{member}}{membership object}
+
+\item{\code{hard.label}}{hard label}
+}}
+\examples{
+#make an matrix membership
+membership(K=3,n=20,RandomNumber=1234)
 }
 

@@ -9,6 +9,9 @@ is.membership(object)
 \arguments{
 \item{object}{an object that used for membership checking}
 }
+\value{
+T/F
+}
 \description{
 checking object is membership object or not
 }

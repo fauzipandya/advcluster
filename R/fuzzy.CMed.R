@@ -1,39 +1,3 @@
-#' Fuzzy C-Means
-#'
-#' @description  Fuzzy C-Means clustering Algorithm (Bezdek, 1984)
-#' @param X dataset (matrix/data frame)
-#' @param K number of cluster
-#' @param m fuzzyfier
-#' @param max.iteration maximum iteration for convergence
-#' @param threshold convergence criteria
-#' @param member.init membership object or matrix that will be used for initialized
-#' @param RandomNumber random number for start initializing
-#' @param print.result print result (9/1)
-#' @details This function perform Fuzzy C-Means algorithm by Bezdek (1984).
-#' Fuzzy C-Means is one of fuzzy clustering methods to clustering dataset
-#' become K cluster. Number of cluster (K) must be greater than 1. To control the overlaping
-#' or fuzziness of clustering, parameter m must be specified.
-#' Maximum iteration and threshold is specific number for convergencing the cluster.
-#' Random Number is number that will be used for seeding to firstly generate fuzzy membership matrix.
-#' @details Clustering will produce fuzzy membership matrix (U) and fuzzy cluster centroid (V).
-#' The greatest value of membership on data point will determine cluster label.
-#' Centroid or cluster center can be use to interpret the cluster. Both membership and centroid produced by
-#' calculating mathematical distance. Fuzzy C-Means calculate distance with Euclideans norm.
-#' @references Balasko, B., Abonyi, J., & Feil, B. (2002). Fuzzy Clustering and Data Analysis Toolbox: For Use with Matlab. Veszprem, Hungary.
-#' @references Bezdek, J. C., Ehrlich, R., & Full, W. (1984). FCM: The Fuzzy C-Means Clustering Algorithm. Computers and Geosciences Vol 10, 191-203
-#' @return Fuzzy Clustering object
-#'
-#' @slot centroid centroid matrix
-#' @slot distance distance matrix
-#' @slot func.obj function objective
-#' @slot call.func called function
-#' @slot fuzzyfier fuzzyness parameter
-#' @slot method.fuzzy method of fuzzy clustering used
-#' @slot member membership matrix
-#' @slot hard.label hard.label
-#' @export
-#' @examples
-#' fuzzy.CM(iris[,1:4],K=3,m=2,max.iteration=100,threshold=1e-5,RandomNumber=1234)
 fuzzy.CM<- function(X,
                     K,
                     m,
@@ -41,8 +5,9 @@ fuzzy.CM<- function(X,
                     threshold,
                     member.init,
                     RandomNumber=0,
-                    print.result=0)
-  {
+                    print.result=0,
+                    diss.method="Cosine")
+{
   #Parameter Checker
   if(missing(X))
     return("Data Unknown\n")
@@ -109,7 +74,35 @@ fuzzy.CM<- function(X,
   U<-member(member.init)
 
   #Initialize Centroid Matrix V (K x p)
-  V <- matrix(0,K,p)
+  V<-matrix(ncol=p,nrow=K)
+  index.picked<-sample(nrow(X),1)
+  V<-as.matrix(X[index.picked,])
+  ind.k=1
+  while(ind.k<=K)
+  {
+    if(ind.k==1)
+      {
+      apply(X,1,function(x) dissimilarity(x,V,diss.method))
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  V<-as.matrix(X[sample(nrow(X),K),])
 
   #Distance Matrix
   D <- matrix(0,n,K)
@@ -120,6 +113,9 @@ fuzzy.CM<- function(X,
     U.old <- U
     D.old <-D
     V.old<-V
+    vector.V<-vector(mode="numeric",length = K)
+
+
     V <- t(U ^ m) %*% data.X / colSums(U ^ m)
     for (k in 1:K)
     {
@@ -174,6 +170,6 @@ fuzzy.CM<- function(X,
   )
   cat("\nFinish :)\n")
   if(print.result==1)
-  show(result)
+    show(result)
   return(result)
 }

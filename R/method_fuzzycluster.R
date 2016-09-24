@@ -16,15 +16,6 @@ setMethod("show","fuzzycluster",function(object){
 })
 
 #' @rdname fuzzycluster-methods
-#' @aliases label, fuzzycluster-method
-#' @exportMethod label
-setGeneric("label",function(x){standardGeneric("label")})
-
-#' @rdname fuzzycluster-methods
-#' @aliases label,fuzzycluster-method
-setMethod("label","fuzzycluster",function(x) x@label)
-
-#' @rdname fuzzycluster-methods
 #' @aliases centroid, fuzzycluster-method
 #' @exportMethod centroid
 setGeneric("centroid",function(x){standardGeneric("centroid")})
@@ -32,15 +23,6 @@ setGeneric("centroid",function(x){standardGeneric("centroid")})
 #' @rdname fuzzycluster-methods
 #' @aliases centroid,fuzzycluster-method
 setMethod("centroid","fuzzycluster",function(x) x@centroid)
-
-#' @rdname fuzzycluster-methods
-#' @aliases label, fuzzycluster-method
-#' @exportMethod label
-setGeneric("label",function(x){standardGeneric("label")})
-
-#' @rdname fuzzycluster-methods
-#' @aliases label,fuzzycluster-method
-setMethod("label","fuzzycluster",function(x) x@label)
 
 
 #' @rdname fuzzycluster-methods
@@ -92,16 +74,6 @@ setGeneric("method.fuzzy",function(x){standardGeneric("method.fuzzy")})
 #' @aliases method.fuzzy,fuzzycluster-method
 setMethod("method.fuzzy","fuzzycluster",function(x) x@method.fuzzy)
 
-
-#' @rdname fuzzycluster-methods
-#' @aliases partition, fuzzycluster-method
-#' @exportMethod partition
-setGeneric("partition",function(x){standardGeneric("partition")})
-
-#' @rdname fuzzycluster-methods
-#' @aliases partition,fuzzycluster-method
-setMethod("partition","fuzzycluster",function(x) x@partition)
-
 #' @rdname fuzzycluster-methods
 #' @aliases cPair,fuzzycluster-method
 #' @exportMethod .cPair
@@ -110,19 +82,19 @@ setGeneric(".cPair",function(x,y){standardGeneric(".cPair")})
 #' @rdname fuzzycluster-methods
 #' @aliases cPair,fuzzycluster-method,ANY-method
 setMethod(".cPair",c("fuzzycluster","fuzzycluster"),
-          function(x,y) {.fuzzy.cPair(x,y)})
+          function(x,y) {fuzzy.cPair(x,y)})
 
 #' @rdname fuzzycluster-methods
 #' @aliases cPair,fuzzycluster-method,ANY-method
 setMethod(".cPair",c("fuzzycluster","ANY"),
-          function(x,y) {.fuzzy.cPair(x,y)})
+          function(x,y) {fuzzy.cPair(x,y)})
 
 #' @rdname fuzzycluster-methods
 #' @aliases cPair,fuzzycluster-method,ANY-method
 setMethod(".cPair",c("ANY","fuzzycluster"),
-          function(x,y) {.fuzzy.cPair(x,y)})
+          function(x,y) {fuzzy.cPair(x,y)})
 
 #' @rdname fuzzycluster-methods
 #' @aliases cPair,fuzzycluster-method,ANY-method
 setMethod(".cPair",c("ANY","ANY"),
-          function(x,y) {.fuzzy.cPair(x,y)})
+          function(x,y) {fuzzy.cPair(x,y)})

@@ -10,9 +10,16 @@ as.membership(member)
 \item{member}{membership matrix}
 }
 \value{
-Membership Membership object, contains membership and label
+Membership Membership object
 }
 \description{
 Convert matrix to membership matrix
 }
+\section{Slots}{
+
+\describe{
+\item{\code{member}}{membership matrix}
+
+\item{\code{hard.label}}{hard label}
+}}
 

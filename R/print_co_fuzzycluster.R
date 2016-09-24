@@ -10,7 +10,7 @@ print.co_fuzzycluster<-function(x,...){
       sep="")
 
   cat("\nEnsemble/Consensus Membership:")
-  member.matrix<-partition.ensemble(x)
+  member.matrix<-member(x)
   colnames(member.matrix)<-paste("Cluster ",
                                  c(1:ncol(member.matrix)),
                                  sep="")
@@ -20,7 +20,7 @@ print.co_fuzzycluster<-function(x,...){
   print(kable(member.matrix,digits = 3))
 
   cat("\nEnsemble/Consensus Label:")
-  label<-label.ensemble(x)
+  label<-hard.label(x)
   names(label)<-rownames(member.matrix)
   print(kable(as.data.frame(label)))
 

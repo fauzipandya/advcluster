@@ -1,6 +1,6 @@
-#' Gustafson Kessel Clustering with Babuska Improvisation
+#' Gath Geva Clustering
 #'
-#' @description  Gustafson Kessel clustering Algorithm that improved by Babuska for estimating covariance cluster (Babuska, 2002)
+#' @description  Gath Geva for Fuzzy Clustering
 #' @param X dataset (matrix/data frame)
 #' @param K number of cluster
 #' @param m fuzzyfier
@@ -8,11 +8,9 @@
 #' @param threshold convergence criteria
 #' @param member.init membership object or matrix that will be used for initialized
 #' @param RandomNumber random number for start initializing
-#' @param gamma tuning parameter
-#' @param rho volume cluster parameter
 #' @param print.result print result (0/1)
-#' @details This function perform Gustafson Kessel algorithm by Gustafson Kessel (1968) that improved by Babuska et al (2002).
-#' Gustafson Kessel (GK) is one of fuzzy clustering methods to clustering dataset
+#' @details This function perform Gath Geva algorithm by Gath-Geva (1989).
+#' Gath Geva is one of fuzzy clustering methods to clustering dataset
 #' become K cluster. Number of cluster (K) must be greater than 1. To control the overlaping
 #' or fuzziness of clustering, parameter m must be specified.
 #' Maximum iteration and threshold is specific number for convergencing the cluster.
@@ -20,17 +18,11 @@
 #' @details Clustering will produce fuzzy membership matrix (U) and fuzzy cluster centroid (V).
 #' The greatest value of membership on data point will determine cluster label.
 #' Centroid or cluster center can be use to interpret the cluster. Both membership and centroid produced by
-#' calculating mathematical distance. Gustafson Kessel calculate distance with Covariance Cluster norm distance. So it can be said that cluster
-#' will have both sperichal and elipsodial shape of geometry.
-#' @details Babuska improve the covariance estimation via tuning covariance cluster
-#' with covariance of data. Tuning parameter determine proportion of covariance data and covariance cluster
-#' that will be used to estimate new covariance cluster. Beside improving via tuning, Basbuka improve
-#' the algorithm with decomposition of covariance so it will become non singular matrix.
-#'
-#' @references Babuska, R., Veen, P. v., & Kaymak, U. (2002). Improved Covarians Estimation for Gustafson Kessel Clustering. IEEE, 1081-1084.
-#' @references Balasko, B., Abonyi, J., & Feil, B. (2002). Fuzzy Clustering and Data Analysis Toolbox: For Use with Matlab. Veszprem, Hungary.
-#' @references Gustafson, D. E., & Kessel, W. C. (1978). Fuzzy Clustering With A Fuzzy Covariance Matrix. 761-766.
+#' calculating mathematical distance. Gath Geva distance with Covariance Cluster and norm distribution assumption
+#' @references  Gath and A.B. Geva,(1989) Unsupervised Optimal Fuzzy Clustering
+#' Balasko, B., Abonyi, J., & Feil, B. (2002). Fuzzy Clustering and Data Analysis Toolbox: For Use with Matlab. Veszprem, Hungary.
 #' @export
+#' @importFrom MASS ginv
 #' @return Fuzzy Clustering object
 #'
 #' @slot centroid centroid matrix
@@ -41,16 +33,12 @@
 #' @slot method.fuzzy method of fuzzy clustering used
 #' @slot member membership matrix
 #' @slot hard.label hard.label
-#' @importFrom MASS ginv
-#' @importFrom stats cov
 #'
 #' @examples
-#' fuzzy.GK(iris[,1:4],K=2,m=2,max.iteration=20,threshold=1e-3,RandomNumber=1234)
-fuzzy.GK<- function(X,
+#' fuzzy.GG(iris[,1:4],K=2,m=2,max.iteration=20,threshold=1e-3,RandomNumber=1234)
+fuzzy.GG<- function(X,
                     K,
                     m,
-                    gamma,
-                    rho,
                     max.iteration,
                     threshold,
                     member.init,
@@ -62,17 +50,9 @@ fuzzy.GK<- function(X,
     return("Data Unknown\n")
   if(missing(K)||K<2||!is.numeric(K))
   {
+    K<-2
+    cat("Default K=2\n")
 
-      K<-2
-      cat("Default K=2\n")
-    }
-  if(missing(gamma)){
-    gamma<-0
-    cat("Default Gamma (0) will be used\n")
-  }
-  if(missing(rho)){
-    rho<-rep(1,K)
-    cat("Default rho will be used\n")
   }
   if(missing(m)||m<1||!is.numeric(m))
   {
@@ -156,26 +136,14 @@ fuzzy.GK<- function(X,
       {
         F.bantu = (U[i,k] ^ m) * (data.X[i,] - V[k,]) %*% t((data.X[i,] - V[k,]))+F.bantu
       }
-      F.bantu = F.bantu / sum(U[,k] ^ m)
-      #Improved estimation covariance by Babuska: Tuning Covariance
-      F.bantu = (1 - gamma) * F.bantu + (gamma * (det(cov(data.X))) ^ (1 / p)) * diag(p)
-      #Checking wheter Covariance is singular or not
-      if (kappa(F.bantu) > 10 ^ 15)
-      {
-        #Improved estimation covariance by Babuska: Reconstruction
-        eig <- eigen(F.bantu)
-        eig.values <- eig$values
-        eig.vec <- eig$vectors
-        eig.val.max <- max(eig.values)
-        eig.values[eig.values*( 10 ^ 15 ) < eig.val.max]=eig.val.max/ ( 10 ^ 15)
-        F.bantu = eig.vec %*% diag(eig.values) %*% solve(eig.vec)
-      }
+      F.bantu = F.bantu / sum(U[,k] ^ 2)
+      ai=sum(U[,k])
       detMat= det(F.bantu)
       #Distance calculation
       for (i in 1:n)
       {
-        D[i,k] = t(data.X[i,] - V[k,]) %*% (
-          (rho[k] * (detMat ^ (1 / p)))*ginv(F.bantu,tol=0)) %*% (data.X[i,] -V[k,])
+        D[i,k] = t(data.X[i,] - V[k,]) %*% (ginv(F.bantu,tol=0)) %*% (data.X[i,] -V[k,])
+        D[i,k]=  (2*pi)^(n/2)*sqrt(detMat)*D[i,k]/(ai/n)
       }
     }
 
@@ -217,7 +185,7 @@ fuzzy.GK<- function(X,
               hard.label=label,
               call.func=as.character(deparse(match.call())),
               fuzzyfier=m,
-              method.fuzzy="Gustafson Kessel Clustering"
+              method.fuzzy="Gath Geva Clustering"
   )
   cat("\nFinish :)\n")
   if(print.result==1)

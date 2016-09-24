@@ -10,10 +10,6 @@ Fuzzy Result
 \section{Slots}{
 
 \describe{
-\item{\code{partition}}{membership matrix}
-
-\item{\code{label}}{vector of hard partition}
-
 \item{\code{centroid}}{centroid matrix}
 
 \item{\code{distance}}{distance matrix}
@@ -25,5 +21,9 @@ Fuzzy Result
 \item{\code{fuzzyfier}}{fuzzyness parameter}
 
 \item{\code{method.fuzzy}}{method of fuzzy clustering used}
+
+\item{\code{member}}{membership matrix}
+
+\item{\code{hard.label}}{hard.label}
 }}
 

@@ -26,15 +26,9 @@
 \alias{fuzzyfier,}
 \alias{fuzzyfier,fuzzycluster-method}
 \alias{is.na,fuzzycluster-method}
-\alias{label}
-\alias{label,}
-\alias{label,fuzzycluster-method}
 \alias{method.fuzzy}
 \alias{method.fuzzy,}
 \alias{method.fuzzy,fuzzycluster-method}
-\alias{partition}
-\alias{partition,}
-\alias{partition,fuzzycluster-method}
 \alias{show,fuzzycluster-method}
 \title{Method for fuzzycluster classes}
 \usage{
@@ -42,17 +36,9 @@
 
 \S4method{show}{fuzzycluster}(object)
 
-label(x)
-
-\S4method{label}{fuzzycluster}(x)
-
 centroid(x)
 
 \S4method{centroid}{fuzzycluster}(x)
-
-label(x)
-
-\S4method{label}{fuzzycluster}(x)
 
 distance(x)
 
@@ -73,10 +59,6 @@ fuzzyfier(x)
 method.fuzzy(x)
 
 \S4method{method.fuzzy}{fuzzycluster}(x)
-
-partition(x)
-
-\S4method{partition}{fuzzycluster}(x)
 
 .cPair(x, y)
 

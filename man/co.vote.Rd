@@ -9,9 +9,38 @@ co.vote(object, method)
 \arguments{
 \item{object}{a fuzzycluster_list object}
 
-\item{method}{voting step that used to combine the partition}
+\item{method}{voting step that used to combine the partition ("sum","borda","product")}
+}
+\value{
+Fuzzy Consensus Object
 }
 \description{
 Provide consensus / ensemble fuzzy clustering with voting method. Several option for voting step provided
+}
+\details{
+Consensus clustering is method for combine several result of clustering into one robust result. This method used to overcome unstability of cluster result.
+
+This function perform consensus clustering with voting approach. Voting approach look the domination of membership with several algorithm like sum rule, product rule and borda rule.
+
+The differences of that method are how to combine several membership. Sum rule use Sum operation. Product rule use Product operation, and Borda use Borda count algorithm.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{member}}{membership matrix}
+
+\item{\code{hard.label}}{hard.label}
+
+\item{\code{method.consensus}}{method of consensus}
+}}
+\examples{
+fuzzy.CM(iris[,1:4],K=2,m=2,max.iteration=20,threshold=1e-3,RandomNumber=1234)->cl1
+fuzzy.GK(iris[,1:4],K=2,m=2,max.iteration=20,threshold=1e-3,RandomNumber=1234)->cl2
+fuzzy.CM(iris[,1:4],K=2,m=2,max.iteration=20,threshold=1e-3,RandomNumber=1234)->cl3
+c_fuzzycluster(cl1,cl2,cl3)->CL
+co.vote(CL,"borda")
+}
+\references{
+Sevillano, X., Alias, F., & Socoro, J. C. (2013). Posisional and Confidence voting-based Consensus Function For Fuzzy Cluster Ensemble.
 }
 

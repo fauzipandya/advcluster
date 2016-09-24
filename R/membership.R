@@ -3,7 +3,14 @@
 #' @param K number of cluster
 #' @param n number of observation
 #' @param RandomNumber random number/seed used
+#' @importFrom stats runif
 #' @export
+#' @return membership object
+#' @slot member membership object
+#' @slot hard.label hard label
+#' @examples
+#' #make an matrix membership
+#' membership(K=3,n=20,RandomNumber=1234)
 "membership"<-function(member,K,n,RandomNumber=0){
   if(missing(K))
   {
@@ -24,8 +31,8 @@
     if (RandomNumber > 0)
       set.seed(RandomNumber)
     member <- matrix(runif(n * K,0,1),n,K)
-    while(any(rowSums(member)!=1))
-      member <- member / rowSums(member)
+    member<-round(member,5)
+    member <- member/rowSums(member)
   }
   hard.label<-apply(member,
                1,

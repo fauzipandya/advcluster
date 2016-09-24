@@ -6,17 +6,31 @@
 #' @details The best cluster result can be decided with minimum value of index, except MPC and PC use maximum value.
 #' @references Wang, W., & Zhang, Y. (2007). On Fuzzy Cluster Validity Indices. Fuzzy Sets and System, 2095-2117.
 #' @author Achmad Fauzi Bagus F
+#' @return validation index object.
+#' @slot XB Xie Beni Index
+#' @slot PC Partition Coef.
+#' @slot MPC Modifief Partition Coef.
+#' @slot Kwon Kwon Index
+#' @slot Tang Tang Index
+#' @slot S Separation Index
+#' @slot CE Classification Entropy
 #' @export
+#'
+#' @examples
+#' fuzzy.CM(iris[,1:4],K=3,m=2,max.iteration=100,threshold=1e-5,RandomNumber=1234)->cl
+#' validation.index(cl)->valid
+#' #example for Xie Beni index
+#' XB(valid)
 validation.index<-function(object){
   if(!is(object,"fuzzycluster"))
     stop("This function just for Fuzzy Clustering Result")
   #Parameter Initialized
-  U<-object@partition
+  U<-member(object)
   K<-ncol(U)
   n<-nrow(U)
-  D<-object@distance
-  V<-object@centroid
-  m<-object@fuzzyfier
+  D<-distance(object)
+  V<-centroid(object)
+  m<-fuzzyfier(object)
   p<-ncol(V)
 
   PC<-sum(U^2)/n

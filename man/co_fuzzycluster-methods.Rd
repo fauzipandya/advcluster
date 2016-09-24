@@ -4,15 +4,9 @@
 \name{is.na,co_fuzzycluster-method}
 \alias{co_fuzzycluster-method}
 \alias{is.na,co_fuzzycluster-method}
-\alias{label.ensemble}
-\alias{label.ensemble,}
-\alias{label.ensemble,co_fuzzycluster-method}
 \alias{method.consensus}
 \alias{method.consensus,}
 \alias{method.consensus,co_fuzzycluster-method}
-\alias{partition.ensemble}
-\alias{partition.ensemble,}
-\alias{partition.ensemble,co_fuzzycluster-method}
 \alias{show,co_fuzzycluster-method}
 \title{Method for co_fuzzycluster classes}
 \usage{
@@ -20,17 +14,9 @@
 
 \S4method{show}{co_fuzzycluster}(object)
 
-label.ensemble(x)
-
-\S4method{label.ensemble}{co_fuzzycluster}(x)
-
 method.consensus(x)
 
 \S4method{method.consensus}{co_fuzzycluster}(x)
-
-partition.ensemble(x)
-
-\S4method{partition.ensemble}{co_fuzzycluster}(x)
 }
 \arguments{
 \item{x}{an co_fuzzycluster object}

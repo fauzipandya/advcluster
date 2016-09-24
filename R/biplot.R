@@ -1,24 +1,28 @@
 #' Biploting Fuzzy Cluster Result
-#' @details Make Visualization Biplot from fuzzy cluster analysis result
+#' @details Make Visualization Biplot from fuzzy cluster / consensus fuzzy cluster analysis result
 #' @param object a cluster object
 #' @param data.X a data matrix that used for clustering
 #' @param scale scaling option (T/F)
 #' @import ggplot2
+#' @importFrom stats prcomp
 #' @export
+#' @examples
+#' fuzzy.CM(iris[,1:4],K=3,m=2,max.iteration=100,threshold=1e-5,RandomNumber=1234)->cl1
+#' biploting(cl1,iris[,1:4])
 biploting <- function(object,data.X,scale) {
   if(missing(object)||missing(data.X))
     stop("No object / data detected")
-  if(length(label(object))!=nrow(data.X))
+  if(length(hard.label(object))!=nrow(data.X))
     stop("row of cluster not match")
-  if(!is(object,"fuzzycluster"))
+  if(!(is(object,"fuzzycluster")||is(object,"co_fuzzycluster")))
     stop("Cluster is not fuzzycluster class")
   if(missing(scale))
   {
     cat("\nScale default:True")
     scale=T}
   data.X<-as.matrix(data.X)
-  label<-label(object)
-  data.PCA <- prcomp(data.X,scale. = T)
+  label<-hard.label(object)
+  data.PCA <- prcomp(data.X,scale. = scale)
   z1 <- as.data.frame(cbind(data.PCA$x[,1:2],label))
   datapc <- data.frame(varnames=rownames(data.PCA$rotation),
                        data.PCA$rotation)
@@ -52,5 +56,6 @@ biploting <- function(object,data.X,scale) {
               aes(color=factor(label),
                   label=rownames(z1)),
               check_overlap = F,size=5)
+  print(pl)
   return(pl)
 }

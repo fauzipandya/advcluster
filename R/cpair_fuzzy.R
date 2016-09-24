@@ -1,7 +1,7 @@
 #' Pairing fuzzy cluster
 #' @param x an fuzzycluster object
 #' @param y an fuzzycluster object
-.fuzzy.cPair<-function(x,y){
+fuzzy.cPair<-function(x,y){
   if(!is(x,"fuzzycluster")||!is(y,"fuzzycluster"))
     if(!is(x,"fuzzycluster_list"))
       if(!is(y,"fuzzycluster_list"))

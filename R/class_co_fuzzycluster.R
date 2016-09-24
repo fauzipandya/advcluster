@@ -2,12 +2,13 @@
 #' @import methods
 #' @name co_fuzzycluster-class
 #' @rdname co_fuzzycluster-class
-#' @slot partition.ensemble membership matrix
-#' @slot label.ensemble vector of hard partition
+#' @slot member membership matrix
+#' @slot hard.label vector of hard partition
 #' @slot method.consensus method of fuzzy clustering used
 #' @exportClass co_fuzzycluster
+#' @include class_membership.R
 setClass("co_fuzzycluster",
-         representation= representation(partition.ensemble="matrix",
-                                        label.ensemble="vector",
-                                        method.consensus="character")
+         representation= representation(
+                                        method.consensus="character"),
+         contains = "membership"
 )
